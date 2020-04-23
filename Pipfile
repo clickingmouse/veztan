@@ -9,6 +9,7 @@ verify_ssl = true
 django = "*"
 djongo = "*"
 requests = "*"
+pprint = "*"
 
 [requires]
 python_version = "3.8"
