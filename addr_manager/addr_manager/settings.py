@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'address'
 ]
 
 MIDDLEWARE = [
@@ -73,12 +74,41 @@ WSGI_APPLICATION = 'addr_manager.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+   'default': {
+      'ENGINE' : 'djongo',
+        'ENFORCE_SCHEMA': True,
+        'LOGGING': {
+        'version': 1,
+        'loggers': {
+            'djongo': {
+                'level': 'DEBUG',
+                'propogate': False,                        
+                }
+            },
+        },
+       'NAME' : 'veztan', 
+       'CLIENT':{
+       #'host' : 'mongodb+srv://%s:%s@cluster0-jnuuu.mongodb.net/test?retryWrites=true&w=majority' % (user,passwd),
+       #'host' : 'mongodb+srv://veztan:V3zt@n@cluster0-jnuuu.mongodb.net/test?retryWrites=true&w=majority',
+       #'port' : 27017,
+       'host':"mongodb://veztan:password1@ds127962.mlab.com:27962/veztan?retryWrites=false",
+       'username' : 'veztan',
+       'password' : 'password1',
+       #'authSource': 'ADDRESSES',
+       #'authMechanism': 'SCRAM-SHA-1'
+       }
+   }
 }
+
+
 
 
 # Password validation
