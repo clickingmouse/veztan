@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 import requests
 import pprint
+from .models import Address
 pp = pprint.PrettyPrinter()
 # Create your views here.
 
@@ -10,12 +11,23 @@ def index(request):
   #query = 'No. 19 Science Park'
   query = 'majestic house'
   query = '80 nathan'
+  
+#  if request.method == 'POST' or request.method == 'GET':
+#     pass
 
-  r = requests.get(url.format(query), headers={'Accept':'application/json', 'Accept-Language':'en'})
-  r = requests.get(url.format(query), headers={'Accept':'application/json'}).json()
+  if request.method == 'GET':
+    print('GET')
+    query_string = request.GET['query']
+    print('query is ::'+ query_string)
 
+  #r = requests.get(url.format(query), headers={'Accept':'application/json', 'Accept-Language':'en'})
+    r = requests.get(url.format(query_string), headers={'Accept':'application/json'}).json()
+    pp.pprint(r)
 
-  pp.pprint(r)
+  
+    result = Address(jsonLine=r)
+    result.save()
 
-
-  return JsonResponse({'Hello':'World'})
+#return JsonResponse({'Hello':'World'})
+    return JsonResponse(r)
+  #return HttpResponse(json.dumps(r), content_type='application/json')
